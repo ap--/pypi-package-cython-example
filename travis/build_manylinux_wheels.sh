@@ -3,6 +3,7 @@ set -e -x
 
 # Compile wheels
 for PYBIN in /opt/python/*/bin; do
+    # should maybe exclude 3.4
     "${PYBIN}/pip" wheel /io/ -w wheelhouse/
 done
 

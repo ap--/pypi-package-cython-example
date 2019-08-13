@@ -8,10 +8,11 @@ matrix:
         - docker
       env: DOCKER_IMAGE=quay.io/pypa/manylinux1_x86_64
            PLAT=manylinux1_x86_64
-      install:
+      before_install:
         - docker pull $DOCKER_IMAGE
-      script:
-        - docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build_manywheels.sh
+      install:
+        - docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build_manylinux_wheels.sh
+
     - name: "Python 2.7 3.[4567] manylinux1 i686 via docker"
       sudo: required
       services:
@@ -19,19 +20,14 @@ matrix:
       env: DOCKER_IMAGE=quay.io/pypa/manylinux1_i686
            PRE_CMD=linux32
            PLAT=manylinux1_i686
-      install:
+      before_install:
         - docker pull $DOCKER_IMAGE
-      script:
-        - docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build_manywheels.sh
+      install:
+        - docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build_manylinux_wheels.sh
+
     - name: "Python 2.7 on macOS"
       os: osx
       osx_image: xcode9.4
-      language: shell
-      before_install:
-        - python -m pip install --upgrade pip
-    - name: "Python 3.7 on macOS"
-      os: osx
-      osx_image: xcode10.2
       language: shell
       before_cache:
         - rm -f "$HOME/Library/Caches/pip/log/debug.log"
@@ -40,12 +36,12 @@ matrix:
           - "$HOME/Library/Caches/pip"
       addons:
         homebrew:
-          # update: true
           packages: python3
       before_install:
         - python3 -m pip install --upgrade virtualenv
-        - virtualenv -p python3 --system-site-packages "$HOME/venv"
-        - source "$HOME/venv/bin/activate"
+      install:
+        - source travis/build_osx_wheels.sh
+
     - name: "Python 2.7 on Windows"
       os: windows
       language: shell
@@ -54,6 +50,7 @@ matrix:
         - choco install --ignore-dependencies vcpython27
         - python -m pip install --upgrade pip
       env: PATH=/c/Python27:/c/Python27/Scripts:$PATH
+
     - name: "Python 3.7 on Windows"
       os: windows
       language: shell
@@ -61,9 +58,9 @@ matrix:
         - choco install python
         - python -m pip install --upgrade pip
       env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
+      install:
+        - source travis/build_windows_wheels.sh
 
-install:
-  - source travis/build_wheel.sh
 script:
   - ls wheelhouse/*.whl
   - echo "done."
