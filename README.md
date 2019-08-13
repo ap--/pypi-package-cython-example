@@ -1,5 +1,7 @@
 # pypi-package-cython-example
 
+**THIS IS WIP**
+
 This is an example project for how to use travis to build wheels for Linux, OSX
 and Windows, for python 2.7 and 3.x and publish them to pypi.
 
