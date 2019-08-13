@@ -34,7 +34,7 @@ matrix:
       before_install:
         - python3 -m pip install --upgrade virtualenv
         - virtualenv -p python3 --system-site-packages "$HOME/venv"
-        - source "$HOME/venv/bin/activate
+        - source "$HOME/venv/bin/activate"
     - name: "Python 2.7 on Windows"
       os: windows
       language: shell
