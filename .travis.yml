@@ -35,4 +35,5 @@ matrix:
 install:
   - source travis/build_wheel.sh
 script:
+  - ls *.whl
   - echo "done."
