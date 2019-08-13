@@ -2,4 +2,4 @@
 echo "Building wheel"
 python --version
 pip --version
-pip wheel .
+pip wheel . -w wheelhouse/

@@ -2,7 +2,7 @@ language: python
 
 matrix:
   include:
-    - name: "Python manylinux1 x86_64 via docker"
+    - name: "Python 2.7 3.[4567] manylinux1 x86_64 via docker"
       sudo: required
       services:
         - docker
@@ -12,7 +12,7 @@ matrix:
         - docker pull $DOCKER_IMAGE
       script:
         - docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build_manywheels.sh
-    - name: "Python manylinux1 i686 via docker"
+    - name: "Python 2.7 3.[4567] manylinux1 i686 via docker"
       sudo: required
       services:
         - docker
@@ -23,16 +23,6 @@ matrix:
         - docker pull $DOCKER_IMAGE
       script:
         - docker run --rm -e PLAT=$PLAT -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build_manywheels.sh
-    - name: "Python 2.7 on Linux"
-      python: 2.7
-      dist: trusty
-      before_install:
-        - python -m pip install --upgrade pip
-    - name: "Python 3.7 on Linux"
-      python: 3.7
-      dist: xenial
-      before_install:
-        - python -m pip install --upgrade pip
     - name: "Python 2.7 on macOS"
       os: osx
       osx_image: xcode9.4
@@ -75,5 +65,5 @@ matrix:
 install:
   - source travis/build_wheel.sh
 script:
-  - ls *.whl
+  - ls wheelhouse/*.whl
   - echo "done."
