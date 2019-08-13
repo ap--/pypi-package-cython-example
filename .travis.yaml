@@ -1,0 +1,37 @@
+language: python
+
+matrix:
+  include:
+    - name: "Python 2.7 on Linux"
+      python: 2.7
+      dist: trusty
+    - name: "Python 3.7 on Linux"
+      python: 3.7
+      dist: xenial
+    - name: "Python 2.7 on macOS"
+      os: osx
+      osx_image: xcode9.4
+      language: shell
+    - name: "Python 3.7 on macOS"
+      os: osx
+      osx_image: xcode10.2
+      language: shell
+    - name: "Python 2.7 on Windows"
+      os: windows
+      language: shell
+      before_install:
+        - choco install python2
+        - python -m pip install --upgrade pip
+      env: PATH=/c/Python27:/c/Python27/Scripts:$PATH
+    - name: "Python 3.7 on Windows"
+      os: windows
+      language: shell
+      before_install:
+        - choco install python
+        - python -m pip install --upgrade pip
+      env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
+
+install:
+  - source travis/build_wheel.sh
+script:
+  - echo "done."
