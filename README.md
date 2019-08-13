@@ -7,7 +7,7 @@ pypi.
 ## TODO
 
 - [x] build wheels on Linux, OSX and Windows for 2.7 and 3.7
-- [ ] build manylinux wheels for Linux cp27m cp27mu
+- [x] build manylinux wheels for Linux cp27m cp27mu
 - [ ] build 32bit wheels for Windows
 - [ ] deploy wheels to pypi
 - [ ] do the same example for azure
