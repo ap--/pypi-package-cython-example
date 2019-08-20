@@ -29,16 +29,31 @@ matrix:
       os: osx
       osx_image: xcode9.4
       language: shell
-      before_cache:
-        - rm -f "$HOME/Library/Caches/pip/log/debug.log"
-      cache:
-        directories:
-          - "$HOME/Library/Caches/pip"
-      addons:
-        homebrew:
-          packages: python3
-      before_install:
-        - python3 -m pip install --upgrade virtualenv
+      env: PYTHON_VERSION=2.7
+      install:
+        - source travis/build_osx_wheels.sh
+
+    - name: "Python 3.5 on macOS"
+      os: osx
+      osx_image: xcode9.4
+      language: shell
+      env: PYTHON_VERSION=3.5
+      install:
+        - source travis/build_osx_wheels.sh
+
+    - name: "Python 3.6 on macOS"
+      os: osx
+      osx_image: xcode9.4
+      language: shell
+      env: PYTHON_VERSION=3.6
+      install:
+        - source travis/build_osx_wheels.sh
+
+    - name: "Python 3.7 on macOS"
+      os: osx
+      osx_image: xcode9.4
+      language: shell
+      env: PYTHON_VERSION=3.7
       install:
         - source travis/build_osx_wheels.sh
 
